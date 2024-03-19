@@ -1,26 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import '../Styles/Profile.css';
 
 function Profile() {
-  const [profileData, setProfileData] = useState(null);
+  const [profileData, setProfileData] = useState({
+    fullName: 'John Doe',
+    email: 'john@example.com',
+    age: 30,
+    city: 'New York',
+    country: 'USA',
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [updatedProfileData, setUpdatedProfileData] = useState({});
-
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const response = await axios.get(`http://localhost:8080/api/userdetails/${userId}`);
-        setProfileData(response.data);
-      } catch (error) {
-        console.error('Error fetching profile data:', error);
-      }
-    };
-
-    fetchProfileData();
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,16 +26,9 @@ function Profile() {
     setUpdatedProfileData(profileData);
   };
 
-  const handleUpdateProfile = async () => {
-    try {
-      const userId = localStorage.getItem('userId');
-      const response = await axios.put(`http://localhost:8080/api/userdetails/${userId}`, updatedProfileData);
-      console.log('Profile updated successfully:', response.data);
-      setProfileData(updatedProfileData);
-      setIsEditing(false);
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
+  const handleUpdateProfile = () => {
+    setProfileData(updatedProfileData);
+    setIsEditing(false);
   };
 
   return (

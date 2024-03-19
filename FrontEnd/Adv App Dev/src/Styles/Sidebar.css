@@ -1,7 +1,8 @@
+
 .sidebar {
     position: fixed;
     max-width: 190px;
-    background-color: #f0f0f0;
+    background-color: #272546;
     padding: 20px;
     min-height: 95vh;
     max-height: auto;
@@ -9,6 +10,7 @@
     transition: width 0.3s ease;
     
   }
+
 
   .sidebar.open {
     width: 260px;
@@ -65,7 +67,7 @@
   
   .sidebar-menu li a {
     text-decoration: none;
-    color: #333;
+    color: rgb(43, 92, 17);
     display: flex;
     padding: 5px;
     align-items: center;

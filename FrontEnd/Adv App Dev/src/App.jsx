@@ -33,14 +33,14 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/user" element={<UserDashboard />} />
           <Route path="/loans" element={<Loans />} />
-          <Route path="/new-application/:bankid/:schemeId" element={<NewApplication />} />
+          <Route path="/apply" element={<NewApplication />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/loan-list" element={<LoanExplorer />} /> 
           <Route path="/loan-calculator" element={<LoanCalculator />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/banks" element={<BanksPage />} />
+          
+          
           <Route path="/schemes" element={<SchemesPage />} />
           <Route path="/all-loans" element={<LoansPage />} />
           <Route path="/faq" element={<AgriLoanFAQ />} />

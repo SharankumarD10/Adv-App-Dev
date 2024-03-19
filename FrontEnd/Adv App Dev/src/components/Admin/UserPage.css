@@ -9,3 +9,6 @@
 .sidebar.close+.users-content{
     margin-left: -70px;
 }
+.contains{
+    margin-left: 150px;
+}

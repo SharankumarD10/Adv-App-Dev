@@ -10,7 +10,7 @@ const Home = () => {
         <p>Apply for agricultural loans online and get the support you need for your farming ventures.</p>
         <br />
         
-        <Link to="/apply" className="custom-btn btn-13">Explore</Link>
+        <Link to="/apply" className="custom-btn btn-13">ApplyNow!</Link>
       </header>
 <br/>
       <section className="cards">
@@ -61,7 +61,7 @@ const Home = () => {
           <h1 className="footer__logo">AgroFundX</h1>
           <h2>Contact</h2>
           <address>
-            1234 Somewhere In India<br />
+            xyz, city-123456<br />
             <a className="footer__btn" href="mailto:enquiry@agrofundx.com">Email Us</a>
           </address>
         </div>

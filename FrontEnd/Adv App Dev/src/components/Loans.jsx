@@ -1,57 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import '../Styles/Loans.css';
 import LoanDetails from './LoanDetails';
-import axios from 'axios';
 
 function Loans() {
-  const [userLoans, setUserLoans] = useState([]);
+  const [userLoans, setUserLoans] = useState([
+    {
+      id: '1',
+      status: 'Approved',
+      fullName: 'John Doe',
+      amount: '$10,000',
+      bank: 'Example Bank',
+      applicationDate: '2024-03-18',
+    },
+    {
+      id: '2',
+      status: 'Pending',
+      fullName: 'Jane Smith',
+      amount: '$15,000',
+      bank: 'Sample Bank',
+      applicationDate: '2024-03-19',
+    },
+    {
+      id: '3',
+      status: 'Rejected',
+      fullName: 'Alice Johnson',
+      amount: '$7,000',
+      bank: 'Test Bank',
+      applicationDate: '2024-03-20',
+    },
+  ]);
   const [selectedLoan, setSelectedLoan] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  useEffect(() => {
-    const fetchUserLoans = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const response = await axios.get(`http://localhost:8080/api/loans/d/${userId}`);
-        const loans = response.data;
-  console.log(loans)
-        const loansWithBankNames = await Promise.all(loans.map(async loan => {
-          const bankName = await fetchBankName(loan.bankid); 
-          return { ...loan, bank: bankName };
-        }));
-        console.log(loansWithBankNames)
-  
-        setUserLoans(loansWithBankNames);
-      } catch (error) {
-        console.error('Error fetching user loans:', error);
-      }
-    };
-  
-    fetchUserLoans();
-  }, []);
-  
 
-  const fetchBankName = async (bankId) => {
-    try {
-      const response = await axios.get(`http://localhost:8080/bank/${bankId}`); 
-      console.log(response.data)
-      return response.data.name;
-    } catch (error) {
-      console.error('Error fetching bank name:', error);
-      return '';
-    }
-  };
-
-  const handleViewDetails = async (loan) => {
-    const bankName = await fetchBankName(loan.bankId);
+  const handleViewDetails = (loan) => {
     setSelectedLoan(loan);
     setIsModalOpen(true);
-  };
-
-  const handlePay = (loan) => {
-    alert(`Paid due amount of ${loan.dueAmount}`);
   };
 
   return (
@@ -91,7 +76,7 @@ function Loans() {
         
         <div className='button-container'>
           <Link to="/loan-list" className='new-application-button'>New Application</Link>
-          <Link to="https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html" target='blank' className='loan-requirements-button'>Apply For new PAN</Link>
+          <a href="https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html" target='_blank' rel="noopener noreferrer" className='loan-requirements-button'>Apply For new PAN</a>
         </div>
       </div>
     </div>

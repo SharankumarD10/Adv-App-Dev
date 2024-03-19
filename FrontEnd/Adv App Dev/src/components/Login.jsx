@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../Styles/Login.css';
-import logo from "../assets/logo.jpg"
+import logo from "../assets/logo.jpg";
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -13,7 +12,7 @@ function LoginPage() {
   });
   const nav = useNavigate();
 
-  const validate = async (e) => {
+  const validate = (e) => {
     e.preventDefault();
     const errors = {};
 
@@ -30,37 +29,27 @@ function LoginPage() {
       return;
     }
 
-    try {
-      const response = await axios.post('http://localhost:8080/api/login', {
-        email,
-        password
-      });
+    // Dummy data for demonstration
+    const dummyUserId = '123456';
+    const dummyUserName = 'John Doe';
+    const dummyUserRole = 'user';
 
-      const userId = response.data.id;
-
-      localStorage.setItem('userId', userId);
-      localStorage.setItem('userName', response.data.name);
-      localStorage.setItem('isLoggedIn', true);
-      if(response.data.role==='user'){
-      localStorage.setItem('userRole','user')
-
-      if(response.data.isFilled){
-
-        nav('/user');
-      }
-      else{
-        alert("Kindly Update your Details")
-        nav('/profile')
-      }
+    // Simulating login success
+    if (email === 'user@example.com' && password === 'password') {
+      alert('Login successful');
+      nav('/user');
+    } else if (email === 'admin@example.com' && password === 'password') {
+      alert('Login successful');
+      nav('/admin-dashboard');
+    } else {
+      alert('Wrong Credentials');
     }
-    else if(response.data.role==='admin'){
-      localStorage.setItem('userRole','admin')
-      nav('/admin-dashboard')
-    }
-    } catch (error) {
-      alert("Wrong Credentials");
-      console.error('Login failed:', error);
-    }
+
+    // Dummy data for demonstration
+    localStorage.setItem('userId', dummyUserId);
+    localStorage.setItem('userName', dummyUserName);
+    localStorage.setItem('userRole', dummyUserRole);
+    localStorage.setItem('isLoggedIn', true);
   };
 
   const handleEmailChange = (e) => {
@@ -75,45 +64,43 @@ function LoginPage() {
 
   return (
     <body id="login-body">
-    <div className='center-div'>
-
-    
-      <div className="login-container">
-        <div className="login-outer-container">
-          <div className="login-content-container">
-            <br />
-            <br />
-            <br />
-            <br />
-            <img className='logo' alt="logo" src={logo}/>
-            <h2>WELCOME BACK &#x2764;</h2>
-            <form>
-              <div>
-                <input
-                  onChange={handleEmailChange}
-                  value={email}
-                  type="email"
-                  placeholder="Email"
-                />
-                {formErrors.email && <p className="error">{formErrors.email}</p>}
-              </div>
-              <div>
-                <input
-                  onChange={handlePasswordChange}
-                  value={password}
-                  type="password"
-                  placeholder="Password"
-                />
-                {formErrors.password && <p className="error">{formErrors.password}</p>}
-              </div>
-              <button onClick={validate} type="submit">Login</button>
-            </form>
-
-            <h3> New To our platform ? Register as</h3><Link className="register-link" to="/register">Farmer ! </Link>
+      <div className='center-div'>
+        <div className="login-container">
+          <div className="login-outer-container">
+            <div className="login-content-container">
+              <br />
+              <br />
+              <br />
+              <br />
+              <img className='logo' alt="logo" src={logo}/>
+              <h2>Hello!</h2>
+              <form onSubmit={validate}>
+                <div>
+                  <input
+                    onChange={handleEmailChange}
+                    value={email}
+                    type="email"
+                    placeholder="Email"
+                  />
+                  {formErrors.email && <p className="error">{formErrors.email}</p>}
+                </div>
+                <div>
+                  <input
+                    onChange={handlePasswordChange}
+                    value={password}
+                    type="password"
+                    placeholder="Password"
+                  />
+                  {formErrors.password && <p className="error">{formErrors.password}</p>}
+                </div>
+                <button type="submit">Login</button>
+              </form>
+              <h3> New To our platform ? Register as</h3>
+              <Link className="register-link" to="/register">Register!</Link>
+            </div>
+            <div className="login-image-container"></div>
           </div>
-          <div className="login-image-container"></div>
         </div>
-      </div>
       </div>
     </body>
   );

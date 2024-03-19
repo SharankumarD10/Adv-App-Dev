@@ -22,7 +22,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
               <img className="logo1" alt="logo" src={logo}/></Link>
           </div>
           <div className="logo-name"> 
-            <h2 className="name">Agri Tech</h2>
+            <h2 className="name">AgroFundX</h2>
           
           </div>
           

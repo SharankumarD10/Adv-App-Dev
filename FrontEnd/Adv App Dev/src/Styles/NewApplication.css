@@ -4,7 +4,7 @@
   }
   
   .new-form{
-    padding: 40px;
+    padding: 140px;
     padding-top:10px;
     border-radius: 10px;
     border: 1px solid black;
@@ -37,7 +37,7 @@
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
+    box-sizing: content-box;
   }
   
   .new-application button[type='submit'] {

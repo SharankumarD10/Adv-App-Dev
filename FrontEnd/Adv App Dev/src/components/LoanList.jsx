@@ -1,26 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import '../Styles/LoanList.css'
-import axios from 'axios';
+import '../Styles/LoanList.css';
 
 const LoanExplorer = () => {
-  const [banks, setBanks] = useState([]);
-  const [page, setPage] = useState(1);
+  const [banks, setBanks] = useState([
+    {
+      id: 1,
+      name: 'Example Bank',
+      schemes: [
+        {
+          id: 1,
+          schemeName: 'Crop Loan Scheme',
+          interestRate: '8%',
+          maximumLoanAmount: '$50,000',
+          description: 'This scheme provides financial assistance to farmers for crop cultivation.',
+          eligibilityCriteria: 'Farmers with agricultural land are eligible.',
+        },
+        {
+          id: 2,
+          schemeName: 'Home Loan Scheme',
+          interestRate: '6.5%',
+          maximumLoanAmount: '$300,000',
+          description: 'This scheme provides loans for purchasing or constructing a home.',
+          eligibilityCriteria: 'Individuals with a stable source of income are eligible.',
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: 'Sample Bank',
+      schemes: [
+        {
+          id: 3,
+          schemeName: 'Personal Loan Scheme',
+          interestRate: '10%',
+          maximumLoanAmount: '$20,000',
+          description: 'This scheme provides personal loans for various purposes.',
+          eligibilityCriteria: 'Individuals with a good credit score are eligible.',
+        },
+      ],
+    },
+  ]);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [isLoggedIn,setIsLoggedin]=useState(localStorage.getItem('isLoggedIn')==='true');
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/bank/');
-        setBanks(response.data);
-      } catch (error) {
-        console.error('Error fetching bank schemes:', error);
-      }
-    };
-    fetchData();
-  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -33,7 +57,7 @@ const LoanExplorer = () => {
 
   return (
     <div className="loan-list" style={{ display: 'flex', marginTop: '70px' }}>
-    {isLoggedIn ===true?  <Sidebar />:<></>}
+      <Sidebar />
       <div className="loan-explorer-container" style={{ flex: 1, padding: '20px' }}>
         <h1>Loan Explorer</h1>
         <TableContainer component={Paper}>
@@ -50,9 +74,12 @@ const LoanExplorer = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {banks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((bank, bankIndex) => (
-                bank.schemes.map((scheme, schemeIndex) => (
-                  <TableRow key={schemeIndex}>
+              {(rowsPerPage > 0
+                ? banks.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : banks
+              ).map((bank) => (
+                bank.schemes.map((scheme) => (
+                  <TableRow key={scheme.id}>
                     <TableCell>{bank.name}</TableCell>
                     <TableCell>{scheme.schemeName}</TableCell>
                     <TableCell>{scheme.interestRate}</TableCell>

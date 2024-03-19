@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import '../Styles/NewApplication.css';
-import axios from 'axios';
 
 function NewApplication() {
   const [formData, setFormData] = useState({
@@ -17,60 +16,15 @@ function NewApplication() {
     duration: '',
     loanType: '',
     collateralDetails: '',
-    additionalDocument: '',
     cropType:'',
     landSize:'',
     requiredMachinery:'',
     agreeToTerms: false,
   });
 
-  const { schemeId } = useParams();
-  const { bankid } = useParams();
+  const { schemeId, bankid } = useParams();
   const [interestRate, setInterestRate] = useState(0);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
-  
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const response = await axios.get(`http://localhost:8080/api/userdetails/${userId}`);
-        const userData = response.data;
-        setFormData({
-          ...formData,
-          fullName: userData.fullName || '',
-          email: userData.email || '',
-          phoneNumber: userData.phoneNumber || '',
-          aadharNumber: userData.aadharNumber || '',
-          panNumber: userData.panNumber || '',
-          addressLine1: userData.addressLine1 || '',
-          addressLine2: userData.addressLine2 || '',
-          district: userData.district || '',
-          city: userData.city || '',
-          state: userData.state || '',
-          dob: userData.dob || '',
-        });
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  useEffect(() => {
-    const fetchSchemeInterestRate = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/bank-schemes/${schemeId}`);
-        console.log(response);
-        const schemeData = response.data;
-        setInterestRate(schemeData.interestRate);
-      } catch (error) {
-        console.error('Error fetching scheme interest rate:', error);
-      }
-    };
-
-    fetchSchemeInterestRate();
-  }, [schemeId]); 
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -82,44 +36,10 @@ function NewApplication() {
     }));
   };
 
-const nav=useNavigate();
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      const interest = interestRate / 100;
-      const loanAmount = parseFloat(formData.amount);
-      const duration = parseInt(formData.duration);
-      const monthlyInterest = interest / 12;
-      const numPayments = duration * 12;
-      console.log(numPayments)
-      console.log(monthlyInterest)
-      const numerator = monthlyInterest * Math.pow(1 + monthlyInterest, numPayments);
-      const denominator = Math.pow(1 + monthlyInterest, numPayments) - 1;
-  
-      const monthlyPayment = (loanAmount * (numerator / denominator)).toFixed(2);
-      setMonthlyPayment(monthlyPayment);
-      const response = await axios.post('http://localhost:8080/api/loans', {
-        userId: localStorage.getItem('userId'),
-        schemeId: schemeId,
-        fullName: formData.fullName,
-        applicationDate: new Date(),
-        cropType: formData.cropType,
-        landSize: formData.landSize,
-        loanType: formData.loanType,
-        amount: formData.amount,
-        monthlyPayment:monthlyPayment,
-        bankid:bankid,
-        dueAmount: 0,
-        requiredMachinery: formData.requiredMachinery,
-        status: 'Pending',
-      });
-      nav('/documents')
-      console.log('Application submitted successfully:', response.data);
-    } catch (error) {
-      console.error('Error submitting application:', error);
-    }
+    // Perform submission logic here
   };
 
   return (
@@ -313,22 +233,24 @@ const nav=useNavigate();
                   </tr>
                 </tbody>
               </table>
-                  <tr>
-            <td>
-              <input
-                type="checkbox"
-                name="agreeToTerms"
-                checked={formData.agreeToTerms}
-                onChange={handleChange}
-                required
-              />
-            </td>
-            <td>Agree to Terms and Conditions:</td>
-          </tr>
-          <button type="submit">Submit Application</button>
+              <tr>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="agreeToTerms"
+                    checked={formData.agreeToTerms}
+                    onChange={handleChange}
+                    required
+                  />
+                </td>
+                <td>Agree to Terms and Conditions:</td>
+              </tr>
+                
+              <button type="submit">
+              Submit
+              </button>
             </div>
           </div>
-        
         </form>
       </div>
     </div>
