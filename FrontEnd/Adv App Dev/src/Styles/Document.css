@@ -4,7 +4,8 @@
     transition: margin-left 0.3s ease; 
 }
   .documents-content {
-    background-color: aliceblue;
+    background-color: #33596e8e;
+    color: aliceblue;
     margin-left: 190px; 
     display: flex;
     flex: 1;
@@ -40,13 +41,13 @@
   .form-group input[type="file"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(80, 139, 90);
     border-radius: 5px;
   }
   
   button[type="submit"] {
     background-color: #4CAF50;
-    color: white;
+    color: rgb(236, 236, 236);
     padding: 10px 20px;
     border: none;
     border-radius: 5px;

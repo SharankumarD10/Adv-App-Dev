@@ -3,6 +3,74 @@ body {
   padding: 0;
   font-family: Arial, sans-serif;
 }
+:root {
+  --primary-color: #35374B;
+  --secondary-color: #50727B;
+  --accent-color: #78A083;
+}
+
+/* Rest of the CSS remains the same */
+
+.Feature-card {
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.Step-card {
+  border: 1px solid var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.Review-card {
+  border: 1px solid var(--accent-color);
+  background-color: var(--accent-color);
+  color: white;
+}
+.Features,
+.HowItWorks,
+.Reviews {
+  margin-bottom: 40px;
+}
+
+.Feature-cards,
+.Steps,
+.Review-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.Feature-card,
+.Step-card,
+.Review-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  width: 300px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.Feature-card:hover,
+.Step-card:hover,
+.Review-card:hover {
+  transform: translateY(-5px);
+}
+
+.Step-number {
+  background-color: #4caf50;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
 
 .gets-content {
   text-align: center;
@@ -26,7 +94,9 @@ body {
     4px 4px 5px 0px rgba(0, 0, 0, .1);
   outline: none;
 }
-
+h2{
+  color: #999;
+}
 .btn-13 {
   background-color: #89d8d3;
   background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);

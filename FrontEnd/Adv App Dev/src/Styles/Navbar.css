@@ -9,7 +9,8 @@ body
   background-color: transparent;
 }
 .nav {
-  background-color:white;
+  background-color:#78A083;
+  color: #e0e0e0;
   position: fixed;
   height: 70px;
   top: 0;

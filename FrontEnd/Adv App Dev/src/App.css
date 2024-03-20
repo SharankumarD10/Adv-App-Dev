@@ -181,15 +181,15 @@ body {
 }
 
 .card:first-child {
-  background-color: #50727B; /* Card background color */
+  background-color: #35374B; /* Card background color */
 }
 
 .card:nth-child(2) {
-  background-color: #78A083; /* Card background color */
+  background-color: #50727B; /* Card background color */
 }
 
 .card:nth-child(3) {
-  background-color: #9da0bb; /* Card background color */
+  background-color: #558563; /* Card background color */
 }
 
 .card:nth-child(4) {

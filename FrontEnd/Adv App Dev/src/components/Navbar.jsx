@@ -22,7 +22,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
               <img className="logo1" alt="logo" src={logo}/></Link>
           </div>
           <div className="logo-name"> 
-            <h2 className="name">AgroFundX</h2>
+            <h1 className="name">AgroFundX</h1>
           
           </div>
           
@@ -31,12 +31,12 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
           <div className='links'>
             <ul>
               <li className='li-elements' >
-                <div className='services'><Link to='/#ser'>Services</Link>
+                <div className='services'><Link to='/#ser'></Link>
                
             </div>
               </li>
               <li className='li-elements'>
-                <div className='partners'><Link to='/loan-calculator'>EMI CALCULATOR</Link></div>
+                <div className='partners'><Link to='/loan-calculator'></Link></div>
               </li>
               
               </ul>
