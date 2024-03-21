@@ -63,6 +63,8 @@ function LoginPage() {
   };
 
   return (
+    <div className='master'>
+
     <body id="login-body">
       <div className='center-div'>
         <div className="login-container">
@@ -103,6 +105,8 @@ function LoginPage() {
         </div>
       </div>
     </body>
+    </div>
+
   );
 }
 

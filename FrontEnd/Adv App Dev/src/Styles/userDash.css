@@ -30,7 +30,7 @@
   }
   
   .new-loan-button {
-    background-color: #4CAF50;
+    background-color: #007bff;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -66,7 +66,7 @@
   }
   .notification{
     padding: 20px;
-    background-color: #35374B
+    background-color: #35374B;
     color : aliceblue;
     border-radius: 20px;
 

@@ -1,89 +1,92 @@
-  import React, { useState, useEffect } from 'react';
-  import { AppBar, Toolbar, Typography, CssBaseline, Container, Grid, Paper, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
-  import { Chart } from 'react-google-charts';
-  import axios from 'axios';
+// AdminDashboard.jsx
+import React, { useState, useEffect } from 'react';
+import { AppBar, Toolbar, Typography, CssBaseline, Container, Grid, Paper, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
+import { Chart } from 'react-google-charts';
+import axios from 'axios';
 import Sidebar from '../Sidebar';
 import './AdminDash.css'
-  const AdminDashboard = () => {
-    const [dashboardData, setDashboardData] = useState(null);
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const loansResponse = await axios.get('http://localhost:8080/api/loans');
-          const schemesResponse = await axios.get('http://localhost:8080/bank-schemes');
-          const usersResponse = await axios.get('http://localhost:8080/api/users');
-          const banksResponse = await axios.get('http://localhost:8080/bank/');
+const AdminDashboard = () => {
+  const [dashboardData, setDashboardData] = useState(null);
 
-          setDashboardData({
-            loans: loansResponse.data,
-            schemes: schemesResponse.data,
-            users: usersResponse.data,
-            banks: banksResponse.data
-          });
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const loansResponse = await axios.get('http://localhost:8080/api/loans');
+        const schemesResponse = await axios.get('http://localhost:8080/bank-schemes');
+        const usersResponse = await axios.get('http://localhost:8080/api/users');
+        const banksResponse = await axios.get('http://localhost:8080/bank/');
 
-      fetchData();
-    }, []);
-    const adminUsers = dashboardData?.users.filter(user => user.role === 'admin');
-    const bankUsers = dashboardData?.users.filter(user => user.role === 'bank');
+        setDashboardData({
+          loans: loansResponse.data,
+          schemes: schemesResponse.data,
+          users: usersResponse.data,
+          banks: banksResponse.data
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-    return (
-      <div className='admin-dash'>
-      <Sidebar/>
+    fetchData();
+  }, []);
+
+  const adminUsers = dashboardData?.users.filter(user => user.role === 'admin');
+  const bankUsers = dashboardData?.users.filter(user => user.role === 'bank');
+
+  return (
+    <div className='admin-dash'>
+      <Sidebar />
       <div className='admin-dash-content'>
-        <Container  maxWidth="lg" style={{minWidth:'86%', marginTop: '30px',fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' ,marginLeft:'200px'}}>
-          <Typography variant="h5" style={{marginBottom:'20px',fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}  className='admin-heading' gutterBottom>
+        <Container maxWidth="lg" style={{minWidth:'86%', marginTop: '30px', fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' ,marginLeft:'200px'}}>
+          <Typography variant="h5" style={{marginBottom:'20px', fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}  className='admin-heading' gutterBottom>
             Welcome to Admin Dashboard 👋
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper elevation={3} style={{ padding: '20px',fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif', minHeight: '150px' }}>
-                <Typography variant="h6" style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} gutterBottom>
+              <Paper elevation={3} style={{ padding: '20px', fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif', minHeight: '150px', backgroundColor: '#35374B' }}>
+                <Typography variant="h6" style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} gutterBottom>
                   Total Users
                 </Typography>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h4" gutterBottom>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h4" gutterBottom>
                   {dashboardData?.users.length || 'Loading...'}
                 </Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper elevation={3} style={{ padding: '20px', minHeight: '150px' }}>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h6" gutterBottom>
+              <Paper elevation={3} style={{ padding: '20px', minHeight: '150px', backgroundColor: '#50727B' }}>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h6" gutterBottom>
                   Total Loans
                 </Typography>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h4" gutterBottom>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h4" gutterBottom>
                   {dashboardData?.loans.length || 'Loading...'}
                 </Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper elevation={3} style={{ padding: '20px', minHeight: '150px' }}>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}  variant="h6" gutterBottom>
+              <Paper elevation={3} style={{ padding: '20px', minHeight: '150px', backgroundColor: '#78A083' }}>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h6" gutterBottom>
                   Total Schemes
                 </Typography>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h4" gutterBottom>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h4" gutterBottom>
                   {dashboardData?.schemes.length || 'Loading...'}
                 </Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Paper elevation={3} style={{ padding: '20px', minHeight: '150px' }}>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h6" gutterBottom>
+              <Paper elevation={3} style={{ padding: '20px', minHeight: '150px', backgroundColor: '#35374B' }}>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h6" gutterBottom>
                   Total Banks
                 </Typography>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h4" gutterBottom>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h4" gutterBottom>
                   {dashboardData?.banks.length || 'Loading...'}
                 </Typography>
               </Paper>
             </Grid>
             {/* Add charts */}
             <Grid item xs={12} md={6}>
-              <Paper elevation={3} style={{ padding: '20px', minHeight: '300px' }}>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h6" gutterBottom>
+              <Paper elevation={3} style={{ padding: '20px', minHeight: '300px', backgroundColor: '#50727B' }}>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h6" gutterBottom>
                   Loan Amount Sanctioned vs Repaid
                 </Typography>
                 <Chart
@@ -107,8 +110,8 @@ import './AdminDash.css'
               </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Paper elevation={3} style={{ padding: '20px', minHeight: '300px' }}>
-                <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h6" gutterBottom>
+              <Paper elevation={3} style={{ padding: '20px', minHeight: '300px', backgroundColor: '#35374B' }}>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h6" gutterBottom>
                   Bank Details
                 </Typography>
                 <Chart
@@ -130,58 +133,56 @@ import './AdminDash.css'
               </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
-            <Paper elevation={3} style={{ padding: '20px', minHeight: '300px' }}>
-              <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h6" gutterBottom>
-                Admin Users
-              </Typography>
-              <Table  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>Name</TableCell>
-                    <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>Email</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {adminUsers?.map(user => (
-                    <TableRow key={user.id}>
-                      <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>{user.name}</TableCell>
-                      <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>{user.email}</TableCell>
+              <Paper elevation={3} style={{ padding: '20px', minHeight: '300px', backgroundColor: '#78A083' }}>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h6" gutterBottom>
+                  Admin Users
+                </Typography>
+                <Table style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>Name</TableCell>
+                      <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>Email</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper elevation={3} style={{ padding: '20px', minHeight: '300px' }}>
-              <Typography  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}} variant="h6" gutterBottom>
-                Bank Users
-              </Typography>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>Name</TableCell>
-                    <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>Email</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {bankUsers?.map(user => (
-                    <TableRow key={user.id}>
-                      <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>{user.name}</TableCell>
-                      <TableCell  style={{fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif'}}>{user.email}</TableCell>
+                  </TableHead>
+                  <TableBody>
+                    {adminUsers?.map(user => (
+                      <TableRow key={user.id}>
+                        <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>{user.name}</TableCell>
+                        <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>{user.email}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper elevation={3} style={{ padding: '20px', minHeight: '300px', backgroundColor: '#50727B' }}>
+                <Typography style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }} variant="h6" gutterBottom>
+                  Bank Users
+                </Typography>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>Name</TableCell>
+                      <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>Email</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Paper>
+                  </TableHead>
+                  <TableBody>
+                    {bankUsers?.map(user => (
+                      <TableRow key={user.id}>
+                        <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>{user.name}</TableCell>
+                        <TableCell style={{ fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif' }}>{user.email}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Paper>
+            </Grid>
           </Grid>
-            
-          </Grid>
-          
         </Container>
-        </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default AdminDashboard;
+export default AdminDashboard;
