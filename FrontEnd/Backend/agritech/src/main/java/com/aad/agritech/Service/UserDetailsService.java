@@ -7,7 +7,7 @@ import com.aad.agritech.Model.UserDetails;
 import com.aad.agritech.Repository.UserDetailsRepository;
 
 import java.util.List;
-
+//c
 @Service
 public class UserDetailsService {
 
