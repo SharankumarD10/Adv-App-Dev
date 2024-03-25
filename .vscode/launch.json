@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AgroApplication<agro>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.aad.agro.AgroApplication",
+            "projectName": "agro",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
