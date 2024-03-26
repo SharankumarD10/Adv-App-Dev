@@ -18,10 +18,10 @@ public class OpenApiConfig {
         public OpenAPI defineOpenApi() {
                 Server server = new Server();
                 server.setUrl("http://localhost:8080");
-                server.setDescription("Advaanced App Development");
+                server.setDescription("Advanced App Development");
 
                 Info info = new Info()
-                                .title("agro")
+                                .title("AgroFundX")
                                 .version("0.1")
                                 .description("swagger configuration testing.");
 
