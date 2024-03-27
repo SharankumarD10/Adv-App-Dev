@@ -31,13 +31,13 @@ public class OpenApiConfig {
                                 .scheme("bearer")
                                 .bearerFormat("JWT");
 
-                // Add the JWT security scheme to the components
+                // Add JWT security scheme to the components
                 Components components = new Components().addSecuritySchemes("bearerAuth", securityScheme);
 
                 // Add security requirement with JWT authentication
                 SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
 
-                // Create the OpenAPI object with components and security requirements
+                // Create OpenAPI object with components and security requirements
                 return new OpenAPI()
                                 .info(info)
                                 .servers(Arrays.asList(server))
